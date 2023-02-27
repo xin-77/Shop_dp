@@ -67,7 +67,6 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         // 判断是否存在
         if (StrUtil.isBlank(shopJson)) {
             // 不存在，直接返回
-
             return null;
         }
         // 命中，需要先把json反序列化为对象

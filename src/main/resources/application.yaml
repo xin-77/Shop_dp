@@ -23,7 +23,6 @@ spring:
     default-property-inclusion: non_null
 mybatis-plus:
   type-aliases-package: com.hmdp.entity
-logging:
-  level:
-    com.hmdp: debug
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

@@ -3,6 +3,7 @@ package com.hmdp.utils;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.hmdp.dto.UserDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -18,6 +19,7 @@ import static com.hmdp.utils.RedisConstants.LOGIN_USER_TTL;
  * @author xin
  * @since 2023/2/22 14:34
  */
+@Slf4j
 public class RefreshTokenInterceptor implements HandlerInterceptor {
 
 
@@ -49,6 +51,7 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
         UserDTO userDTO = BeanUtil.fillBeanWithMap(map, new UserDTO(), false);
 
         // 存在，保存用户信息到TreadLocal
+        log.debug(userDTO.toString());
         UserHolder.saveUser(userDTO);
 
         // 刷新token有效期
@@ -60,6 +63,7 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        // 移除用户
+        UserHolder.removeUser();
     }
 }

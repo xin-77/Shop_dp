@@ -27,8 +27,6 @@ public class  ShopTypeController {
 
     @GetMapping("list")
     public Result queryTypeList() {
-
-
         return typeService.queryTypeList();
     }
 }
