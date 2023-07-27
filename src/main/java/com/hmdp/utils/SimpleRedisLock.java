@@ -36,7 +36,9 @@ public class SimpleRedisLock implements ILock{
     public boolean tryLock(long timeoutSec) {
         // 获取锁
         String key = KEY_PREFIX + name;
+        // 获取线程标识
         String threadId = ID_PREFIX + Thread.currentThread().getId();
+        // 获取锁
         Boolean success = stringRedisTemplate.opsForValue().setIfAbsent(key, threadId, timeoutSec, TimeUnit.SECONDS);
 
         return Boolean.TRUE.equals(success);
